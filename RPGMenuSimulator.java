@@ -89,30 +89,37 @@ public class RPGMenuSimulator {
                     break;
 
                 case 5:
-                    System.out.println("\nEstado del personaje próximamente...");
-                    if (personajeCreado) {
-                        
-                        System.out.println("Nombre: " + nombre);
-                        System.out.println("Clase: " + tipo);
-                        if (vida < 20) {
-                            System.out.println("¡Cuidado! Tu vida es baja.");
-                            
-                        }else if (vida < 50) {
-                            System.out.println("Tu vida es moderada.");
-                            break;
-                        }else if (vida > 80) {
-                            System.out.println("¡Estás en excelente forma!");
-                            break;
-                        } else {
-                            System.out.println("Tu vida es estable.");
-                            break;
-                        }
-                        System.out.println("Fuerza: " + fuerza);
-                        break;
-                    } else {
-                        System.out.println("No se ha creado un personaje aún...");
+                    if (!personajeCreado) {
+                        System.out.println("\nNo se ha creado un personaje aún...");
                         break;
                     }
+
+                    // Barra visual de vida (sobre 100)
+                    int barraLlena = vida / 10;
+                    StringBuilder barra = new StringBuilder("[");
+                    for (int i = 0; i < 10; i++) {
+                        barra.append(i < barraLlena ? "█" : "░");
+                    }
+                    barra.append("]");
+
+                    String estadoVida;
+                    if (vida < 20) {
+                        estadoVida = "¡PELIGRO! Vida crítica";
+                    } else if (vida < 50) {
+                        estadoVida = "Vida baja, ten cuidado";
+                    } else if (vida <= 80) {
+                        estadoVida = "Vida estable";
+                    } else {
+                        estadoVida = "¡Excelente forma!";
+                    }
+
+                    System.out.println("\n=== ESTADO DEL PERSONAJE ===");
+                    System.out.println("Nombre  : " + nombre);
+                    System.out.println("Clase   : " + tipo);
+                    System.out.println("─────────────────────────────");
+                    System.out.println("Vida    : " + barra + "  " + vida + "/100  " + estadoVida);
+                    System.out.println("Fuerza  : " + fuerza);
+                    break;
                     
 
                 case 6:
